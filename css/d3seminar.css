@@ -94,7 +94,6 @@
     transition:         opacity 1s 5s,         transform 0.5s 4.5s;
 }
 
-*/
 .impress-enabled          { pointer-events: none }
 .impress-enabled #impress { pointer-events: auto }
 
@@ -107,10 +106,17 @@
 .impress-on-overview .step {
     background-color: #000000;
 }
-
+.border {
+    border: 1px solid white;
+}
 .logoText {
     font-size: 180px;
     text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+
+#javascript h2,h1 {
+margin-top: 10%;
+text-align: center;
 }
 
 #js li {
@@ -122,4 +128,25 @@
     margin-left: 10px;
     padding: 2px;
     border: 1px solid #fff;
+}
+
+
+
+#isandisnt li{
+    margin-top: 5%;
+}
+#isandisnt li.is {
+    color: #00ff00;
+
+}
+#isandisnt li.not {
+    color: #ff0000;
+}
+
+#isandisnt div{
+    width: 50%;
+    float: left;
+    margin: auto;
+    margin-top: 20%;
+    font-size: 40px;
 }

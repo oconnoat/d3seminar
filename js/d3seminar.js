@@ -20,4 +20,15 @@ var logo = d3.select("#titleSlide #logo").append("svg:svg") // create the drawin
                     .attr("y", function(d, i){ return 215 * i + 150; }); // the y position decided by the position of the data item in the array
             //note: this will only run once, when the page is displayed first
 
-
+/* Svg */
+var svgslide = d3.select("#svg #chart").append("svg:svg")
+            .attr("width", slideWidth-100) 
+            .attr("height", slideHeight-100)
+            .attr("class", "chart")
+            .attr("class", "border")
+            .append("text")
+            .attr("y", 150)
+            .attr("x", 50)
+            .attr("class", "logoText") 
+            .text("TEST");
+                
