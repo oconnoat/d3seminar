@@ -25,10 +25,26 @@ var svgslide = d3.select("#svg #chart").append("svg:svg")
             .attr("width", slideWidth-100) 
             .attr("height", slideHeight-100)
             .attr("class", "chart")
-            .attr("class", "border")
-            .append("text")
-            .attr("y", 150)
-            .attr("x", 50)
+            .attr("class", "border");
+
+            svgslide.append("text")
+            .attr("y", 325)
+            .attr("x", 175)
             .attr("class", "logoText") 
-            .text("TEST");
+            .text("SVG"); //if I were to continue the chain here, it would append to text rather than svgslide
+    
+            svgslide.append("circle")
+            .attr("r", 10)
+            .attr("cx", 10)
+            .attr("cy", 10)
+            .attr("fill", "white")
+            .transition(2000)
+            .attr("cx", 400)
+            .attr("cy", 300)
+            .attr("r", 50)
+            .transition(2000)
+            .attr("cx", 790)
+            .attr("cy", 590)
+            .attr("r", 10);
+
                 

@@ -51,6 +51,23 @@
     <div id="svg" class="step slide letterD" data-x="-1500" data-y="0">
         <div id="chart"></div> 
     </div>
+    <div id="svgCode" class="step slide code" data-x="-1500" data-y="0" data-z="-1000" data-rotate-y="90">
+        <h3>Create the SVG element</h3>
+        <pre class="prettyprint">
+var svgslide = d3.select("#svg #chart").append("svg:svg")
+            .attr("width", slideWidth-100) 
+            .attr("height", slideHeight-100)
+            .attr("class", "chart")
+            .attr("class", "borders");</pre>
+        <h3>Add a Text Element</h3>
+        <pre class="prettyprint">
+          svgslide.append("text")
+            .attr("y", 325)
+            .attr("x", 175)
+            .attr("class", "logoText") 
+            .text("SVG"); 
+        </pre>
+    </div>
     <div class="step slide letterD" data-x="-1500" data-y="1000"></div>
     <div class="step slide letterD" data-x="-1500" data-y="2000"></div>
     <div class="step slide letterD" data-x="-2500" data-y="2000"></div>
@@ -83,6 +100,7 @@ if ("ontouchstart" in document.documentElement) {
 
 <script src="js/impress.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=js"></script>
 <script src="js/d3seminar.js"></script>
 <script>impress().init();</script>
 </body>
