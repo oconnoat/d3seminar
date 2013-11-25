@@ -21,36 +21,28 @@ var logo = d3.select("#titleSlide #logo").append("svg:svg") // create the drawin
             //note: this will only run once, when the page is displayed first
 
 /* Svg */
-var svgslide = d3.select("#svg #chart").append("svg:svg")
+var svgslide = d3.select("#svgchart").append("svg:svg")
             .attr("width", slideWidth-100) 
             .attr("height", slideHeight-100)
             .attr("class", "chart")
             .attr("class", "border");
 
             svgslide.append("text")
-//          .attr("y", 325)
-//          .attr("x", 175)
-            .attr("class", "logoText") 
+            .attr("y", 325)
+            .attr("x", 175)
+            .attr("class", "logoText")
             .text("SVG"); //if I were to continue the chain here, it would append to text rather than svgslide
     
-            svgslide.append("circle")
-            .attr("r", 10)
-            .attr("cx", 10)
-            .attr("cy", 10)
-            .attr("fill", "white")
-            .transition(2000)
-            .attr("r", 50)
-            .transition(2000)
-            .attr("cx", 790)
-            .attr("cy", 590)
-            .attr("r", 10)
-            .transition(2000)
-            .attr("cx", 10)
-            .attr("cy", 10)
-            .attr("r", 50)
-            .transition(2000)
-            .attr("cx", 790)
-            .attr("cy", 590)
-            .attr("r", 10);
+/* Shapes */
+var shapeslide = d3.select("#shapes #shapechart").append("svg:svg")
+                .attr("width", slideWidth-100)
+                .attr("height", slideHeight / 3)
+                .attr("class", "chart")
+                .attr("class", "border");
 
-                
+    shapeslide.append("circle")
+              .attr("cx", "350")
+              .attr("cy", "150")
+              .attr("r", "50")
+              .attr("fill", "#300");
+

@@ -53,7 +53,7 @@
             </div>
     </div>
     <div id="svg" class="step slide letterD" data-x="-1500" data-y="0">
-        <div id="chart"></div> 
+        <div id="svgchart"></div> 
     </div>
     <div id="svgCode" class="step slide code" data-x="-1500" data-y="0" data-z="-1000" data-rotate-y="90">
         <h3>Create the SVG element</h3>
@@ -72,8 +72,16 @@ var svgslide = d3.select("#svg #chart").append("svg:svg")
             .text("SVG"); 
         </pre>
     </div>
-    <div class="step slide letterD" data-x="-1500" data-y="1000">
+    <div id="shapes" class="step slide letterD" data-x="-1500" data-y="1000">
         <h3>Drawing things is simple</h3>
+        <div id="shapechart"></div>
+        <pre class="prettyprint">
+ shapeslide.append("circle")
+              .attr("cx", "350")
+              .attr("cy", "150")
+              .attr("r", "50")
+              .attr("fill", "#300");
+        </pre>
     </div>
     <div class="step slide letterD" data-x="-1500" data-y="2000">
         <h3>Selectors and Selections</h3>
@@ -122,6 +130,10 @@ if ("ontouchstart" in document.documentElement) {
 
 <script src="js/impress.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<script type="text/javascript"> if (typeof(d3) == 'undefined') { alert('d3 didn\'t load'); document.write("<script src=\"js/d3.min.js\"><\/script>");}</script>
+
+
 <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=js"></script>
 <script src="js/d3seminar.js"></script>
 <script>impress().init();</script>
