@@ -89,8 +89,26 @@ var svgslide = d3.select("#svg #chart").append("svg:svg")
     <div class="step slide letterD" data-x="-2500" data-y="2000">
         <h3><em>Data</em>-driven Documents</h3>
     </div>
-    <div class="step slide letterD" data-x="-3500" data-y="2000">
-        <h3>Animation</h3>
+    <div id="animation" class="step slide letterD" data-x="-3500" data-y="2000">
+        <div id="animchartPos"></div>
+        <div id="animcodePos">
+<pre class="prettyprint">
+animslidePos.select("rect")
+  .transition()
+  .duration(1000)
+  .attr("x", "80%")
+  .attr("y", "75%")
+  .transition()
+  .delay(1000)
+  .attr("fill", "red");
+</pre>
+        </div>
+       <div id="animchartAdd"></div>
+       <div id="animcodeAdd">
+<pre class="prettyprint">
+</pre>
+        </div>
+
     </div>
     <div class="step slide letterD" data-x="-4500" data-y="1000">
         <h3>Interaction</h3>
