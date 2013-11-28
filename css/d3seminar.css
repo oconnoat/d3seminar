@@ -1,3 +1,7 @@
+pre {
+    background-color: #ddd;
+}
+
 .step {
     position: relative;
     width: 900px;
@@ -97,10 +101,10 @@
 .impress-enabled #impress { pointer-events: auto }
 
 .number {
-    background-color: #00ff00;
+    background-color: #ccffcc;
 }
 .letterD {
-    background-color: #0000ff;
+    background-color: #CCCCff;
 }
 .impress-on-overview .step {
     background-color: #000000;
@@ -137,7 +141,22 @@ text-align: center;
     border: 1px solid #fff;
 }
 
+#datadriven a{
+    font-size: 12px;
+}
 
+#datadriven pre{
+    margin-top: 0%;
+    font-size: 16px;
+    width: 100%;
+    height: 33%;
+}
+
+#countrychart{
+    width: 100%;
+    height: 65;
+    border: 1px solid red;
+}
 
 #isandisnt li{
     margin-top: 5%;
@@ -160,13 +179,27 @@ text-align: center;
 
 #animation div{
     font-size: 16px;
-    width: 40%;
-    max-height: 50%;
-    float: left;
+    overflow: none;
 }
 
-.matrixText {
-    font-size:16px;
-    color: #00ff00;
-    transform: rotate(90);
+#position {
+   width: 40%;
+   float:left;
 }
+
+#addition{
+    width: 55%;
+    float: right;
+}
+
+#addition pre{
+    font-size: 14px;
+}
+#animchartPos{
+    border: 1px solid white;
+}
+#animchartAdd {
+    background-color: #000;
+    border: 1px solid white;
+}
+

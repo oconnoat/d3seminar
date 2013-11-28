@@ -41,18 +41,40 @@ var shapeslide = d3.select("#shapechart").append("svg:svg")
                 .attr("class", "border");
 
     shapeslide.append("circle")
-              .attr("cx", "350")
-              .attr("cy", "150")
-              .attr("r", "50")
-              .attr("fill", "#333");
+              .attr("cx", "50%")
+              .attr("cy", "50%")
+              .attr("r", "100")
+              .attr("fill", "#fff");
+/* Country chart example */
+var exampleData = [
+    {"name":"Ireland","value":852}, 
+    {"name":"United Kingdom", "value":406}, 
+    {"name":"Greece", "value":174}, 
+    {"name":"France","value":182}, 
+    {"name":"USA","value":106}, 
+    {"name":"Zimbabwe","value":103}];
+
+
+var countryslide = d3.select("#countrychart").append("svg:svg")
+            .attr("height","50%")
+            .attr("width","100%")
+            .attr("class","chart");
+
+
+    countryslide.selectAll("circle")
+                .data(exampleData)
+                .enter()
+                .append("circle")
+                .attr("cx", function(d,i){ return i * 120 + 30;})
+                .attr("cy", "50%")
+                .attr("r", function(d,i){console.log(d); return d.value / 8;});
 
 /* Animation */
 
 var animslidePos = d3.select("#animchartPos").append("svg:svg")
                 .attr("width", "100%")
-                .attr("height", "80%")
-                .attr("class", "chart")
-                .attr("class", "border");
+                .attr("height", "50%")
+                .attr("class", "chart");
    
     animslidePos.append("rect")
                 .attr("x", 5)
@@ -67,7 +89,7 @@ var animslidePos = d3.select("#animchartPos").append("svg:svg")
         .transition()
         .duration(1000)
         .attr("x", "80%")
-        .attr("y", "75%")
+        .attr("y", "80%")
         .transition()
         .delay(1000)
         .attr("fill", "red");
@@ -75,24 +97,25 @@ var animslidePos = d3.select("#animchartPos").append("svg:svg")
 
 
 var animslideAdd = d3.select("#animchartAdd").append("svg:svg")
-                .attr("width", slideWidth /3 )
-                .attr("height", slideHeight / 2)
+                .attr("width", "100%" )
+                .attr("height", "25%" )
                 .attr("class", "chart")
-                .attr("class", "border");
+
 //the data array
-var animslideAddData = ["电","كهرباء","बिजली","전기","⚡"];
+var animslideAddData = ["蛅棦蛶晙亍衿軝蛚楉乜墏乇踀磣巿","晙亍衿軝蛚楉乜晙亍衿軝蛚楉乜墏墏","仈屴。冘秝豖莣垤","醽搕晙亍衿軝蛚楉乜墏嗀伔扦洁杅","氝佷庍溲晙亍衿軝蛚楉乜墏亍侀褑艀","溷磟扡晙亍衿軝蛚楉乜墏一菬孲","晊忞晙亍衿軝蛚楉乜墏宄姶兀，嫆","腏兀侅珆葃枔圣","兀狘鞂炷卬怭。蛢"];
 
     animslideAdd.on("click", function(){
-        alert("data");
         animslideAdd.selectAll("text")
         .data(animslideAddData)
         .enter()
         .append("text")
-        .attr("class","matrixText")
-        .attr("y", 0)
-        .attr("x", function(d,i){ return (10 + 20 * i); })
-        .text(function(d,i){console.log(d); return d;})
-        .transition()
-        .attr("y", "80%");
-        
+        .attr("fill", "#00ff00")
+        .attr("stroke", "#ddffdd")
+        .attr("transform", "rotate(90)") // rotates all co-ordinates by 90 
+        .attr("font-size", "22px")
+        .attr("x", "-20%")
+        .attr("y", function(d,i){ return (-70 * i); })
+        .text(function(d,i){return d;})
+        .transition().duration(4000)
+        .attr("x", "100%");
     });

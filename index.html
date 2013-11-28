@@ -76,20 +76,34 @@ var svgslide = d3.select("#svg #chart").append("svg:svg")
         <h3>Drawing things is simple</h3>
         <div id="shapechart"></div>
         <pre class="prettyprint">
- shapeslide.append("circle")
-              .attr("cx", "350")
-              .attr("cy", "150")
-              .attr("r", "50")
-              .attr("fill", "#300");
-        </pre>
+shapeslide.append("circle")
+  .attr("cx", "50%")
+  .attr("cy", "50%")
+  .attr("r", "100")
+  .attr("fill", "#fff");
+</pre>
     </div>
-    <div class="step slide letterD" data-x="-1500" data-y="2000">
-        <h3>Selectors and Selections</h3>
+    <div id="selectors" class="step slide letterD" data-x="-1500" data-y="2000">
+        <h3>Selectors</h3>
+        <h3>Select a document element and assign it to a variable</h3>
+        <pre>var slide = 
+d3.select("#svg #chart").append("svg:svg")</pre>
+        <h3>Select things <em>that don't yet exist (!)</h3>
+            <pre>var circles = slide.selectAll("circle")</pre>
+            <h3><a href="https://github.com/mbostock/d3/wiki/Selections">https://github.com/mbostock/d3/wiki/Selections</a></h3>
     </div>
-    <div class="step slide letterD" data-x="-2500" data-y="2000">
+    <div id="datadriven" class="step slide letterD" data-x="-2500" data-y="2000">
         <h3><em>Data</em>-driven Documents</h3>
-    </div>
+        <div id="countrychart"></div>
+
+        <pre>var exampleData = {
+"Ireland":852, "United Kingdom":406, 
+"Greece":174, "France":182, 
+"USA":106, "Zimbabwe":103"};</pre>
+        <a href="http://en.wikipedia.org/wiki/List_of_countries_by_external_debt">Source</a>
+            </div>
     <div id="animation" class="step slide letterD" data-x="-3500" data-y="2000">
+        <div id="position">
         <div id="animchartPos"></div>
         <div id="animcodePos">
 <pre class="prettyprint">
@@ -103,12 +117,27 @@ animslidePos.select("rect")
   .attr("fill", "red");
 </pre>
         </div>
+    </div>
+    <div id="addition">
        <div id="animchartAdd"></div>
        <div id="animcodeAdd">
 <pre class="prettyprint">
+animslideAdd.selectAll("text")
+  .data(animslideAddData)
+  .enter()
+  .append("text")
+  .attr("fill", "#00ff00")
+  .attr("stroke", "#ddffdd")
+  .attr("transform", "rotate(90)") 
+  .attr("font-size", "22px")
+  .attr("x", "-20%")
+  .attr("y", function(d,i){ return (-70 * i); })
+  .text(function(d,i){console.log(d); return d;})
+  .transition().duration(2000)
+  .attr("x", "100%");
 </pre>
         </div>
-
+    </div>
     </div>
     <div class="step slide letterD" data-x="-4500" data-y="1000">
         <h3>Interaction</h3>
