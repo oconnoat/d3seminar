@@ -96,12 +96,28 @@ d3.select("#svg #chart").append("svg:svg")</pre>
         <h3><em>Data</em>-driven Documents</h3>
         <div id="countrychart"></div>
 
-        <pre>var exampleData = {
-"Ireland":852, "United Kingdom":406, 
-"Greece":174, "France":182, 
-"USA":106, "Zimbabwe":103"};</pre>
+        <pre>var exampleData = [
+    {"name":"Ireland","value":852}, {"name":"United Kingdom", "value":406}, 
+    {"name":"France","value":182}, {"name":"Greece", "value":174},
+    {"name":"Zimbabwe","value":103}];</pre>
         <a href="http://en.wikipedia.org/wiki/List_of_countries_by_external_debt">Source</a>
             </div>
+            
+    <div id="datacode" class="step slide code" data-x="-2500" data-y="2000" data-z="-1000" data-rotate-y="90">
+        <pre>
+var countryscale = d3.scale.linear()
+  .domain([0, d3.max(exampleData, function(d){return d.value;})])
+  .range([0, 1]);
+    
+countryslide.selectAll("circle")
+  .data(exampleData)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d,i){return (i * 20 + 15) + "%";})
+  .attr("cy", "50%")
+  .attr("fill", "white")
+  .attr("r", function(d,i){return countryscale(d.value) * 100;})</pre>
+    </div>
     <div id="animation" class="step slide letterD" data-x="-3500" data-y="2000">
         <div id="position">
         <div id="animchartPos"></div>
@@ -141,16 +157,24 @@ animslideAdd.selectAll("text")
     </div>
     <div class="step slide letterD" data-x="-4500" data-y="1000">
         <h3>Interaction</h3>
+        <pre>d3.on()</pre>
+
     </div>
-    <div class="step slide letterD" data-x="-4500" data-y="0">
+    <div id="json" class="step slide letterD" data-x="-4500" data-y="0">
         <h3>JSON &amp; other animals</h3>
     </div>
-    <div class="step slide letterD" data-x="-3500" data-y="-1000">
-        <h3>Handy Tutorials</h3>
+    <div id="force" class="step slide letterD" data-x="-3500" data-y="-1000">
+        <h3>Layouts and Physics</h3>
     </div>
     <div class="step slide letterD" data-x="-2500" data-y="-1000">
-        <h3>Higher-level Libraries based on D3</h3>
-    </div>
+                <h3>Higher-level Libraries based on D3</h3>
+                <ul>
+                    <li><a href="http://square.github.io/crossfilter/">Crossfilter</a>: High-performance charts for analytics</li>
+                    <li><a href="http://nvd3.org/">nv3d.js</a>: reusable d3.js charts</li>
+                    <li><a href="http://code.shutterstock.com/rickshaw/">Rickshaw</a>: Interactive Time Series</li>
+                </ul>
+                    <h3><a href="https://github.com/mbostock/d3/wiki/Tutorials">Official list of tutorials</a></h3>
+            </div>
     <!-- 3 -->
     <div class="step slide number" data-x="1500" data-y="-2000">
         <h3>Example App: SPARQL Result Viewer</h3>

@@ -49,9 +49,8 @@ var shapeslide = d3.select("#shapechart").append("svg:svg")
 var exampleData = [
     {"name":"Ireland","value":852}, 
     {"name":"United Kingdom", "value":406}, 
-    {"name":"Greece", "value":174}, 
     {"name":"France","value":182}, 
-    {"name":"USA","value":106}, 
+    {"name":"Greece", "value":174},
     {"name":"Zimbabwe","value":103}];
 
 
@@ -60,14 +59,29 @@ var countryslide = d3.select("#countrychart").append("svg:svg")
             .attr("width","100%")
             .attr("class","chart");
 
-
+var countryscale = d3.scale.linear()
+                    .domain([0, d3.max(exampleData, 
+                                function(d){return d.value;})])
+                    .range([0, 1]);
+    
     countryslide.selectAll("circle")
                 .data(exampleData)
                 .enter()
+                .append("g")
                 .append("circle")
-                .attr("cx", function(d,i){ return i * 120 + 30;})
+                .attr("cx", function(d,i){return (i * 20 + 15) + "%";})
                 .attr("cy", "50%")
-                .attr("r", function(d,i){console.log(d); return d.value / 8;});
+                .attr("fill", "white")
+                .attr("r", function(d,i){ return countryscale(d.value) * 100;})
+    countryslide.selectAll("text")
+                .data(exampleData)
+                .enter()
+                .append("text")
+                .attr("font-size", "16px")
+                .attr("text-anchor", "middle")
+                .attr("x", function(d,i){return  (i * 20 + 15) + "%";})
+                .attr("y", "10%")
+                .text(function(d){return d.name;});
 
 /* Animation */
 
