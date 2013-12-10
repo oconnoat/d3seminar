@@ -133,3 +133,69 @@ var animslideAddData = ["蛅棦蛶晙亍衿軝蛚楉乜墏乇踀磣巿","晙亍�
         .transition().duration(4000)
         .attr("x", "100%");
     });
+
+//Force-Directed Graph Setup
+var forcecolor = d3.scale.category20();
+
+var forceOne = d3.layout.force()
+    .charge(-200)
+    .linkDistance(100)
+    .size([400, 400]);
+
+var svgOne = d3.select("#forcechart").append("svg")
+    .attr("class", "chart")
+    .attr("width", "450px")
+    .attr("height", "500px");
+
+graphOne = {
+   "nodes": [
+       {"name":"A",  "group": 1}, 
+       {"name":"B",  "group": 1}, 
+       {"name":"C",  "group": 2}, 
+       {"name":"D",  "group": 3}, 
+       {"name":"E",  "group": 3}
+   ], 
+   "links": [
+       {"source":0, "target":1, "value":1}, 
+       {"source":0, "target":2, "value":5}, 
+       {"source":1, "target":2, "value":5}, 
+       {"source":3, "target":4, "value":1}, 
+       {"source":3, "target":2, "value":5}, 
+       {"source":4, "target":2, "value":5}, 
+   ]
+   
+};
+
+//Force Directed Graph
+forceOne
+    .nodes(graphOne.nodes)
+    .links(graphOne.links)
+    .start();
+
+var linkOne = svgOne.selectAll(".link")
+    .data(graphOne.links)
+  .enter().append("line")
+    .attr("class", "link")
+    .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+var nodeOne = svgOne.selectAll(".node")
+    .data(graphOne.nodes)
+  .enter().append("circle")
+    .attr("class", "node")
+    .attr("r", 5)
+    .style("fill", function(d) { return forcecolor(d.group); })
+    .call(forceOne.drag);
+
+nodeOne.append("title")
+    .text(function(d) { return d.name; });
+
+
+forceOne.on("tick", function() {
+  linkOne.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  nodeOne.attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+});

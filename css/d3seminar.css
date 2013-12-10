@@ -203,3 +203,12 @@ text-align: center;
     border: 1px solid white;
 }
 
+#force .node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+#force .link {
+  stroke: #999;
+  stroke-opacity: .6;
+
