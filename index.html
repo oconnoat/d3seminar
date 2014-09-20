@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=1024" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Displaying Dazzling Data</title>
-    
+
     <meta name="description" content="An introduction to Data-driven documents.js" />
     <meta name="author" content="Alexander O'Connor" />
- 
+
     <!-- font awesome -->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
     <!-- google fonts -->
-    <link href='//fonts.googleapis.com/css?family=Kameron:700|Luckiest+Guy|Oxygen&subset=latin,latin-ext' rel='stylesheet' type='text/css' /> 
+    <link href='//fonts.googleapis.com/css?family=Kameron:700|Luckiest+Guy|Oxygen&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="css/d3seminar.css" />
 
 </head>
@@ -53,13 +53,13 @@
             </div>
     </div>
     <div id="svg" class="step slide letterD" data-x="-1500" data-y="0">
-        <div id="svgchart"></div> 
+        <div id="svgchart"></div>
     </div>
     <div id="svgCode" class="step slide code" data-x="-1500" data-y="0" data-z="-1000" data-rotate-y="90">
         <h3>Create the SVG element</h3>
         <pre class="prettyprint">
 var svgslide = d3.select("#svg #chart").append("svg:svg")
-            .attr("width", slideWidth-100) 
+            .attr("width", slideWidth-100)
             .attr("height", slideHeight-100)
             .attr("class", "chart")
             .attr("class", "borders");</pre>
@@ -68,8 +68,8 @@ var svgslide = d3.select("#svg #chart").append("svg:svg")
           svgslide.append("text")
             .attr("y", 325)
             .attr("x", 175)
-            .attr("class", "logoText") 
-            .text("SVG"); 
+            .attr("class", "logoText")
+            .text("SVG");
         </pre>
     </div>
     <div id="shapes" class="step slide letterD" data-x="-1500" data-y="1000">
@@ -86,7 +86,7 @@ shapeslide.append("circle")
     <div id="selectors" class="step slide letterD" data-x="-1500" data-y="2000">
         <h3>Selectors</h3>
         <h3>Select a document element and assign it to a variable</h3>
-        <pre>var slide = 
+        <pre>var slide =
 d3.select("#svg #chart").append("svg:svg")</pre>
         <h3>Select things <em>that don't yet exist (!)</h3>
             <pre>var circles = slide.selectAll("circle")</pre>
@@ -97,18 +97,18 @@ d3.select("#svg #chart").append("svg:svg")</pre>
         <div id="countrychart"></div>
 
         <pre>var exampleData = [
-    {"name":"Ireland","value":852}, {"name":"United Kingdom", "value":406}, 
+    {"name":"Ireland","value":852}, {"name":"United Kingdom", "value":406},
     {"name":"France","value":182}, {"name":"Greece", "value":174},
     {"name":"Zimbabwe","value":103}];</pre>
         <a href="http://en.wikipedia.org/wiki/List_of_countries_by_external_debt">Source</a>
             </div>
-            
+
     <div id="datacode" class="step slide code" data-x="-2500" data-y="2000" data-z="-1000" data-rotate-y="90">
         <pre>
 var countryscale = d3.scale.linear()
   .domain([0, d3.max(exampleData, function(d){return d.value;})])
   .range([0, 1]);
-    
+
 countryslide.selectAll("circle")
   .data(exampleData)
   .enter()
@@ -144,7 +144,7 @@ animslideAdd.selectAll("text")
   .append("text")
   .attr("fill", "#00ff00")
   .attr("stroke", "#ddffdd")
-  .attr("transform", "rotate(90)") 
+  .attr("transform", "rotate(90)")
   .attr("font-size", "22px")
   .attr("x", "-20%")
   .attr("y", function(d,i){ return (-70 * i); })
@@ -162,12 +162,116 @@ animslideAdd.selectAll("text")
     </div>
     <div id="json" class="step slide letterD" data-x="-4500" data-y="0">
         <h3>JSON &amp; other animals</h3>
+        <div id="exampleJson">
+<pre class="prettyprint">
+{
+  "@context": {
+    "ical": "http://www.w3.org/2002/12/cal/ical#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "ical:dtstart": {
+      "@type": "xsd:dateTime"
+    }
+  },
+  "ical:summary": "Lady Gaga Concert",
+  "ical:location": "New Orleans Arena, New Orleans, Louisiana, USA",
+  "ical:dtstart": "2011-04-09T20:00Z"
+}
+</pre>
+        </div>
+    <div id="dateOutput"><p></p></div>
+</div>
+    <div id="outputJson" class="step slide code" data-x="-4500" data-y="0" data-rotate-y="90" data-z="-1000">
+        <pre class="prettyprint">
+d3.json('../gaga.json', function(error, json){
+    if (error) return console.warn(error);
+    var now = new Date(Date.now());
+    var then = new Date(json["ical:dtstart"]);
+    var days = Math.floor((now-then) / (1000 * 60 * 60 * 24));
+    d3.select('#dateOutput')
+                    .append('p').text(days+' days elapsed');
+});
+        </pre>
+        <h2><a href="https://github.com/mbostock/d3/wiki/Requests#d3_xml">D3.csv, D3.xml and others also exist.</a></h2>
     </div>
     <div id="force" class="step slide letterD" data-x="-3500" data-y="-1000">
         <h3>Layouts and Physics</h3>
-        <div id="bouncechart"></div>
         <div id="forcechart"></div>
+        <p>A huge amount of code for free, if you read the documentation <br />(<strong>beware Stackoverflow</strong>)</p>
     </div>
+<div id="forceCode" class="step slide code" data-x="-3500" data-y="-1000" data-rotate-y="90" data-z="-1200">
+    <pre class="prettyprint">
+//Force-Directed Graph Setup
+var forcecolor = d3.scale.category20();
+
+var forceOne = d3.layout.force()
+    .charge(-200)
+    .linkDistance(100)
+    .size([400, 400]);
+
+var svgOne = d3.select("#forcechart").append("svg")
+    .attr("class", "chart")
+    .attr("width", "450px")
+    .attr("height", "500px");
+
+forceOne
+    .nodes(graphOne.nodes)
+    .links(graphOne.links)
+    .start();
+
+var linkOne = svgOne.selectAll(".link")
+    .data(graphOne.links)
+  .enter().append("line")
+    .attr("class", "link")
+    .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+var nodeOne = svgOne.selectAll(".node")
+    .data(graphOne.nodes)
+  .enter().append("circle")
+    .attr("class", "node")
+    .attr("r", 5)
+    .style("fill", function(d) { return forcecolor(d.group); })
+    .call(forceOne.drag);
+
+nodeOne.append("title")
+    .text(function(d) { return d.name; });
+
+
+forceOne.on("tick", function() {
+  linkOne.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  nodeOne.attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+});
+
+    </pre>
+</div>
+
+<div id="forceData" class="step slide code" data-x="-3500" data-y="-1000" data-rotate-y="90" data-z="-2400">
+    <pre class="prettyprint">
+graphOne = {
+   "nodes": [
+       {"name":"A",  "group": 1},
+       {"name":"B",  "group": 1},
+       {"name":"C",  "group": 2},
+       {"name":"D",  "group": 3},
+       {"name":"E",  "group": 3}
+   ],
+   "links": [
+       {"source":0, "target":1, "value":1},
+       {"source":0, "target":2, "value":5},
+       {"source":1, "target":2, "value":5},
+       {"source":3, "target":4, "value":1},
+       {"source":3, "target":2, "value":5},
+       {"source":4, "target":2, "value":5},
+   ]
+
+};
+    </pre>
+</div>
+
     <div class="step slide letterD" data-x="-2500" data-y="-1000">
                 <h3>Higher-level Libraries based on D3</h3>
                 <ul>
@@ -178,16 +282,65 @@ animslideAdd.selectAll("text")
                     <h3><a href="https://github.com/mbostock/d3/wiki/Tutorials">Official list of tutorials</a></h3>
             </div>
     <!-- 3 -->
-    <div class="step slide number" data-x="1500" data-y="-2000">
+    <div id="appOverview" class="step slide number" data-x="1500" data-y="-2000">
         <h3>Example App: SPARQL Result Viewer</h3>
-        <a href="https://github.com/mbostock/d3/wiki/Requests#wiki-d3_xml">D3 Requests</a>
+        <ol>
+            <li>Requesting the Data</li>
+            <li>Displaying the text triples</li>
+            <li>Drawing a graph</li>
+            <li>Animating it</li>
+            <li>Future Work</li>
+        </ol>
+            
     </div>
-    <div class="step slide number" data-x="2500" data-y="-2000"></div>
-    <div class="step slide number" data-x="3500" data-y="-1000"></div>
-    <div class="step slide number" data-x="2500" data-y="0"></div>
-    <div class="step slide number" data-x="3500" data-y="1000"></div>
-    <div class="step slide number" data-x="2500" data-y="2000"></div>
-    <div class="step slide number" data-x="1500" data-y="2000"></div>
+    <div id="appRequest" class="step slide number" data-x="2500" data-y="-2000">
+        <pre class="prettyprint">
+SELECT ?game, ?title
+WHERE {
+    ?game &lt;http://purl.org/dc/terms/subject&gt; 
+&lt;http://dbpedia.org/resource/Category:First-person_shooters&gt; .
+    ?game foaf:name ?title .
+}
+ORDER by ?title
+LIMIT 5</pre>
+    </div>
+    <div id="appRequestCode" class="step slide code" data-x="2500" data-y="-2000" data-z="-1000" data-rotate-y="90">
+        <pre class="prettyprint">
+d3.json(dbpediamusicians, function(error, json){
+    console.log(json);      
+});
+        </pre>
+    </div>
+    <div id="bindresults" class="step slide number" data-x="3500" data-y="-1000">
+        <table id="bindresults" border="1"></table>
+        <pre class="prettyprint">
+ var rows = d3.select('#bindresults')
+.selectAll("tr")
+.data(json['results']['bindings'])
+.enter()
+.append("tr");
+
+var cells = rows.selectAll('td')
+.data(function(d){return d3.values(d)})
+.enter().append("td")
+.text(function(d) {return d['value']});</pre>
+    </div>
+    <div id="graphresults" class="step slide number" data-x="2500" data-y="0">
+    </div>
+    <div id="animateresults" class="step slide number" data-x="3500" data-y="1000"></div>
+    <div id="futurework" class="step slide number" data-x="2500" data-y="2000"></div>
+    <div class="step slide number" data-x="1500" data-y="2000">
+        <h1>Summary</h1>
+        <ul>
+            <li>D3 Provides lots of stuff for free</li>
+            <li>... and Just enough Rope to hang yourself</li>
+            <li>The best option is to try and keep to the style which it imposes:
+            <ul>
+                <li>Use Selects</li>
+                <li>Evaluate lazily</li>
+                <li>Use the libraries for things like interpolation, colours</li>
+            </ul></li>
+            </ul></div>
 
     <!-- overview -->
     <div id="overview" class="step slide" data-x="0" data-y="0" data-scale="10"></div>
@@ -196,7 +349,7 @@ animslideAdd.selectAll("text")
     <p>Use a spacebar or arrow keys to navigate</p>
 </div>
 <script>
-if ("ontouchstart" in document.documentElement) { 
+if ("ontouchstart" in document.documentElement) {
     document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
 }
 </script>

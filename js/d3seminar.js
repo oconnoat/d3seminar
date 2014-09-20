@@ -4,7 +4,7 @@ var slideHeight = 700;
 
 /* logo */
 var logo = d3.select("#titleSlide #logo").append("svg:svg") // create the drawing surface
-            .attr("width", slideWidth) 
+            .attr("width", slideWidth)
             .attr("height", slideHeight)
             .attr("class", "chart")
             .selectAll("text") //selectAll creates a selector array for svg text nodes on the surface, it's empty to start
@@ -22,7 +22,7 @@ var logo = d3.select("#titleSlide #logo").append("svg:svg") // create the drawin
 
 /* Svg */
 var svgslide = d3.select("#svgchart").append("svg:svg")
-            .attr("width", slideWidth-100) 
+            .attr("width", slideWidth-100)
             .attr("height", slideHeight-100)
             .attr("class", "chart")
             .attr("class", "border");
@@ -32,7 +32,7 @@ var svgslide = d3.select("#svgchart").append("svg:svg")
             .attr("x", 175)
             .attr("class", "logoText")
             .text("SVG"); //if I were to continue the chain here, it would append to text rather than svgslide
-    
+
 /* Shapes */
 var shapeslide = d3.select("#shapechart").append("svg:svg")
                 .attr("width", slideWidth-100)
@@ -47,9 +47,9 @@ var shapeslide = d3.select("#shapechart").append("svg:svg")
               .attr("fill", "#fff");
 /* Country chart example */
 var exampleData = [
-    {"name":"Ireland","value":852}, 
-    {"name":"United Kingdom", "value":406}, 
-    {"name":"France","value":182}, 
+    {"name":"Ireland","value":852},
+    {"name":"United Kingdom", "value":406},
+    {"name":"France","value":182},
     {"name":"Greece", "value":174},
     {"name":"Zimbabwe","value":103}];
 
@@ -60,10 +60,10 @@ var countryslide = d3.select("#countrychart").append("svg:svg")
             .attr("class","chart");
 
 var countryscale = d3.scale.linear()
-                    .domain([0, d3.max(exampleData, 
+                    .domain([0, d3.max(exampleData,
                                 function(d){return d.value;})])
                     .range([0, 1]);
-    
+
     countryslide.selectAll("circle")
                 .data(exampleData)
                 .enter()
@@ -89,7 +89,7 @@ var animslidePos = d3.select("#animchartPos").append("svg:svg")
                 .attr("width", "100%")
                 .attr("height", "50%")
                 .attr("class", "chart");
-   
+
     animslidePos.append("rect")
                 .attr("x", 5)
                 .attr("y", 5)
@@ -125,7 +125,7 @@ var animslideAddData = ["蛅棦蛶晙亍衿軝蛚楉乜墏乇踀磣巿","晙亍�
         .append("text")
         .attr("fill", "#00ff00")
         .attr("stroke", "#ddffdd")
-        .attr("transform", "rotate(90)") // rotates all co-ordinates by 90 
+        .attr("transform", "rotate(90)") // rotates all co-ordinates by 90
         .attr("font-size", "22px")
         .attr("x", "-20%")
         .attr("y", function(d,i){ return (-70 * i); })
@@ -149,22 +149,32 @@ var svgOne = d3.select("#forcechart").append("svg")
 
 graphOne = {
    "nodes": [
-       {"name":"A",  "group": 1}, 
-       {"name":"B",  "group": 1}, 
-       {"name":"C",  "group": 2}, 
-       {"name":"D",  "group": 3}, 
+       {"name":"A",  "group": 1},
+       {"name":"B",  "group": 1},
+       {"name":"C",  "group": 2},
+       {"name":"D",  "group": 3},
        {"name":"E",  "group": 3}
-   ], 
+   ],
    "links": [
-       {"source":0, "target":1, "value":1}, 
-       {"source":0, "target":2, "value":5}, 
-       {"source":1, "target":2, "value":5}, 
-       {"source":3, "target":4, "value":1}, 
-       {"source":3, "target":2, "value":5}, 
-       {"source":4, "target":2, "value":5}, 
+       {"source":0, "target":1, "value":1},
+       {"source":0, "target":2, "value":5},
+       {"source":1, "target":2, "value":5},
+       {"source":3, "target":4, "value":1},
+       {"source":3, "target":2, "value":5},
+       {"source":4, "target":2, "value":5},
    ]
-   
+
 };
+
+//json
+d3.json('../gaga.json', function(error, json){
+    if (error) return console.warn(error);
+    var now = new Date(Date.now());
+    var then = new Date(json["ical:dtstart"]);
+    var days = Math.floor((now-then) / (1000 * 60 * 60 * 24));
+    d3.select('#dateOutput').append('p').text(days+' days have elapsed');
+});
+
 
 //Force Directed Graph
 forceOne
@@ -198,4 +208,35 @@ forceOne.on("tick", function() {
 
   nodeOne.attr("cx", function(d) { return d.x; })
       .attr("cy", function(d) { return d.y; });
+});
+
+/* final app code */
+
+var dbpediagames = "http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%0D%0APREFIX+%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0D%0APREFIX+dbpedia2%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2F%3E%0D%0APREFIX+dbpedia%3A+%3Chttp%3A%2F%2Fdbpedia.org%2F%3E%0D%0APREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0ASELECT+%3Fgame+%3Ftitle%0D%0AWHERE+%7B%0D%0A++++%3Fgame+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fsubject%3E+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3AFirst-person_shooters%3E+.%0D%0A++++%3Fgame+foaf%3Aname+%3Ftitle+.%0D%0A%7D%0D%0AORDER+by+%3Ftitle%0D%0ALIMIT+5%0D%0A&output=json"; 
+d3.json(dbpediagames, function(error, json){
+   console.log(json); 
+    // create a row for each object in the data
+    var rows = d3.select('#bindresults').selectAll("tr")
+        .data(json['results']['bindings'])
+        .enter()
+        .append("tr");
+
+    var cells = rows.selectAll('td').data(function(d){return d3.values(d)})
+  .enter().append("td")
+  .text(function(d) {return d['value']});
+
+  var graphresults =d3.select('#graphresults').append('svg:svg')
+  .attr("class", "chart")
+  .attr("width", "500px")
+  .attr("height", "500px");
+  
+  graphresults.selectAll('.node')
+  .data(json['results']['bindings']).enter()
+  .append('circle')
+  .attr("class", "node")
+  .attr("r", 20)
+  .attr("fill", "white")
+  .attr("cx", 180)
+  .attr("cy", function(d, i){ console.log(d); return (i * 50 + 25);});
+  
 });

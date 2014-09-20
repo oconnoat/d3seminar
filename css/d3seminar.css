@@ -202,7 +202,10 @@ text-align: center;
     background-color: #000;
     border: 1px solid white;
 }
+#json pre{
+    font-size:18px;
 
+}
 #force .node {
   stroke: #fff;
   stroke-width: 1.5px;
@@ -211,4 +214,30 @@ text-align: center;
 #force .link {
   stroke: #999;
   stroke-opacity: .6;
+}
+#force p, #force div{
+    float: left;
+    margin: 2%;
+    width: 45%;
+    border: 1px solid #999;
+}
 
+#appRequest pre{
+
+    font-size: 20px;
+}
+#bindresults td{
+    border: 1px solid black;
+    padding: 2px;
+    background-color:#fff;
+}
+#graphresults circle:hover{
+  stroke: #f00;
+  stroke-width: 1.5px;
+
+}
+.code pre{
+    overflow: auto;
+    width: 700px;
+    height: 500px;
+}
