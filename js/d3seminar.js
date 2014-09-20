@@ -167,7 +167,7 @@ graphOne = {
 };
 
 //json
-d3.json('gaga.json', function(error, json){
+d3.json('js/gaga.json', function(error, json){
     if (error) return console.warn(error);
     var now = new Date(Date.now());
     var then = new Date(json["ical:dtstart"]);
