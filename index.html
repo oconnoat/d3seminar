@@ -157,8 +157,14 @@ animslideAdd.selectAll("text")
     </div>
     <div class="step slide letterD" data-x="-4500" data-y="1000">
         <h3>Interaction</h3>
-        <pre>d3.on()</pre>
-
+        <ol>
+            <li>Mouse</li>
+            <li>Touch</li>
+            <li>Drag</li>
+            <li>Zoom</li>
+        </ol>
+        <p><a href="https://github.com/mbostock/d3/wiki/API-Reference">API Reference</a></p>
+        
     </div>
     <div id="json" class="step slide letterD" data-x="-4500" data-y="0">
         <h3>JSON &amp; other animals</h3>
@@ -306,13 +312,15 @@ LIMIT 5</pre>
     </div>
     <div id="appRequestCode" class="step slide code" data-x="2500" data-y="-2000" data-z="-1000" data-rotate-y="90">
         <pre class="prettyprint">
-d3.json(dbpediamusicians, function(error, json){
+d3.json(dbpediagame, function(error, json){
     console.log(json);      
 });
         </pre>
     </div>
     <div id="bindresults" class="step slide number" data-x="3500" data-y="-1000">
-        <table id="bindresults" border="1"></table>
+        <table id="bindresultstable" border="1"></table>
+    </div>
+    <div id="bindresultscode" class="step slide code" data-x="3500" data-y="-1000" data-rotate-y="90" data-z="-1000">
         <pre class="prettyprint">
  var rows = d3.select('#bindresults')
 .selectAll("tr")
@@ -327,8 +335,25 @@ var cells = rows.selectAll('td')
     </div>
     <div id="graphresults" class="step slide number" data-x="2500" data-y="0">
     </div>
-    <div id="animateresults" class="step slide number" data-x="3500" data-y="1000"></div>
-    <div id="futurework" class="step slide number" data-x="2500" data-y="2000"></div>
+    <div id="animateresults" class="step slide number" data-x="3500" data-y="1000">
+        <pre class="prettyprint">
+#graphresults circle:hover{
+  stroke: #000;
+  stroke-width: 3px;
+
+}</pre>
+        <p>Part of the attraction of SVG &amp; D3 is that it's not a black box like flash or canvas.</p>
+    </div>
+    <div id="futurework" class="step slide number" data-x="2500" data-y="2000">
+        <ul>
+            <li><a href="http://nylen.tv/d3-process-map/graph.php?dataset=les-mis">Interactive Force Layouts</a></li>
+            <li><a href="http://projects.delimited.io/experiments/d3-threejs/">Three.js + D3 = 6D?</a></li>
+            <li><a href="http://bl.ocks.org/mbostock/3828981">Smooth Interpolations in zooms</a></li>
+            <li><a href="http://bl.ocks.org/milroc/5519819">Better reusability and using angular</a></li>
+            <li><a href="http://nbviewer.ipython.org/gist/z-m-k/4484816/ipyD3sample.ipynb">integrating ipython</a></li>
+        </ul>    
+    
+    </div>
     <div class="step slide number" data-x="1500" data-y="2000">
         <h1>Summary</h1>
         <ul>

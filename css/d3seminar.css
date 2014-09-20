@@ -227,14 +227,18 @@ text-align: center;
     font-size: 20px;
 }
 #bindresults td{
+    font-size: 20px;
     border: 1px solid black;
     padding: 2px;
     background-color:#fff;
 }
 #graphresults circle:hover{
-  stroke: #f00;
-  stroke-width: 1.5px;
+  stroke: #000;
+  stroke-width: 3px;
 
+}
+#appRequestCode pre{
+ height: 50%;
 }
 .code pre{
     overflow: auto;

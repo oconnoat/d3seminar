@@ -214,6 +214,7 @@ forceOne.on("tick", function() {
 
 var dbpediagames = "http://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E%0D%0APREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0D%0APREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0D%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0D%0APREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E%0D%0APREFIX+dc%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Felements%2F1.1%2F%3E%0D%0APREFIX+%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2F%3E%0D%0APREFIX+dbpedia2%3A+%3Chttp%3A%2F%2Fdbpedia.org%2Fproperty%2F%3E%0D%0APREFIX+dbpedia%3A+%3Chttp%3A%2F%2Fdbpedia.org%2F%3E%0D%0APREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E%0D%0ASELECT+%3Fgame+%3Ftitle%0D%0AWHERE+%7B%0D%0A++++%3Fgame+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2Fsubject%3E+%3Chttp%3A%2F%2Fdbpedia.org%2Fresource%2FCategory%3AFirst-person_shooters%3E+.%0D%0A++++%3Fgame+foaf%3Aname+%3Ftitle+.%0D%0A%7D%0D%0AORDER+by+%3Ftitle%0D%0ALIMIT+5%0D%0A&output=json"; 
 d3.json(dbpediagames, function(error, json){
+   console.log('result json:');
    console.log(json); 
     // create a row for each object in the data
     var rows = d3.select('#bindresults').selectAll("tr")
@@ -230,13 +231,31 @@ d3.json(dbpediagames, function(error, json){
   .attr("width", "500px")
   .attr("height", "500px");
   
-  graphresults.selectAll('.node')
-  .data(json['results']['bindings']).enter()
-  .append('circle')
-  .attr("class", "node")
-  .attr("r", 20)
-  .attr("fill", "white")
-  .attr("cx", 180)
-  .attr("cy", function(d, i){ console.log(d); return (i * 50 + 25);});
-  
+  var groups = graphresults.selectAll('g')
+  .data(json['results']['bindings']).enter().append('g');
+
+//draw the line under the ellipses
+  groups.append('line')
+ .attr('x1',100) 
+ .attr('x2',300) 
+ .attr('y1', function(d, i){ console.log(d); return (i * 100 + 50);}) 
+ .attr('y2', function(d, i){ console.log(d); return (i * 100 + 50);}) 
+ .attr('stroke', 'gray')
+ .attr('stroke-width', 5)
+ .append('svg:title').text('hasTitle');
+
+
+  groups.append('circle')
+  .attr("r", 45)
+  .attr("fill", "blue")
+  .attr("cx", 100)
+  .attr("cy", function(d, i){ console.log(d); return (i * 100 + 50)}) 
+  .append('svg:title').text(function(d,i){return d.game.value});
+
+ groups.append('circle')
+  .attr("r", 45)
+  .attr("fill", "red")
+  .attr("cx", 300)
+  .attr("cy", function(d, i){ console.log(d); return (i * 100 + 50)}) 
+  .append('svg:title').text(function(d,i){return d.title.value});
 });
